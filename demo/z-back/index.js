@@ -18,21 +18,24 @@ const corsOptions = {
   credentials: true,
 };
 
-// database connection
+//database connection
 mongoose.set("strictQuery", false);
-const connect = async () => {
-  try {
-    await mongoose.connect('mongodb+srv://Bala:Vi1L8aYC35XC9IWa@cluster0.emmlb6n.mongodb.net/cluster0?retryWrites=true&w=majority', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+// const connect = () => {
+//   try {
+//      mongoose.connect('mongodb+srv://Bala:Vi1L8aYC35XC9IWa@cluster0.emmlb6n.mongodb.net/cluster0?retryWrites=true&w=majority', {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//     });
 
-    console.log("MongoDB database connected");
-  } catch (err) {
-    console.log("MongoDB database connection failed");
-    console.error('Error connecting to MongoDB', err);
-  }
-};
+//     console.log("MongoDB database connected");
+//   } catch (err) {
+//     console.log("MongoDB database connection failed");
+//   }
+// };
+const url = process.env.MONGO_URI;
+mongoose.connect(url, () => {
+  console.log("Database connected");
+});
 
 // middleware
 app.use(express.json());
@@ -44,7 +47,7 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/booking", bookingRoute);
 
-app.listen(port, () => {
-  connect();
-  console.log("server listening on port", port);
+app.listen(5000, () => {
+  // connect();
+  console.log("server listening on port", 5000);
 });
